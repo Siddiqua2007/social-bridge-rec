@@ -1,0 +1,9 @@
+,0
+users,2000.0
+items,3670.0
+interactions,40748.0
+social_edges,7949.0
+interaction_density_pct,0.555149863760218
+social_density_pct,0.3976488244122061
+avg_items_per_user,20.374
+avg_friends_per_user,7.949
