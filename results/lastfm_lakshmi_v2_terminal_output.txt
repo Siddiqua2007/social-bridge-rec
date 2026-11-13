@@ -1,0 +1,71 @@
+DATASET STATS: {'users': 1873.0, 'items': 6942.0, 'interactions': 82113.0, 'social_edges': 12588.0, 'interaction_density_pct': 0.6315, 'social_density_pct': 0.718, 'avg_items_per_user': 43.8404, 'avg_friends_per_user': 13.4415}
+constraint computed in 0s
+seed 0 done in 27s
+seed 1 done in 42s
+seed 2 done in 41s
+
+=== STEP 1 DIAGNOSTIC (mean over seeds) ===
+n_edges                   12588.0000
+overall_cross                 0.3166
+novelty_cross                 0.8807
+novelty_within                0.8613
+zero_pref_share               0.1346
+cross_in_zero_pref            0.4029
+cross_in_pos_pref             0.3032
+cross_in_bottom30_pref        0.3944
+null_lo_pref                  0.3041
+null_hi_pref                  0.3286
+cross_in_bottom30_hdsr        0.3342
+null_lo_hdsr                  0.3047
+null_hi_hdsr                  0.3285
+
+=== KEPT-EDGE PROFILE ===
+              kept_edges  kept_cross_share  kept_nov
+variant                                            
+full            12588.0             0.317     0.867
+hdsr             8812.0             0.309     0.881
+hdsr+bridge      8812.0             0.452     0.882
+pref             8812.0             0.283     0.821
+pref+bridge      8812.0             0.452     0.831
+random           8812.0             0.315     0.868
+
+=== CHOSEN BETA (on validation) ===
+ variant      beta
+full         0.1     3
+hdsr         0.1     3
+hdsr+bridge  0.1     3
+pref         0.1     2
+             0.2     1
+pref+bridge  0.1     3
+random       0.1     3
+
+=== EXP 1 MAIN TABLE (test; beta picked on validation; mean +- std over seeds) ===
+                     recall@20           ndcg@20      coverage@100       entropy@100    tail_share@100
+variant                                                                                              
+full          0.249 +- 0.0061  0.2451 +- 0.0065  0.9586 +- 0.0027   7.744 +- 0.0118  0.3761 +- 0.0031
+hdsr          0.2492 +- 0.006  0.2454 +- 0.0065  0.9589 +- 0.0024  7.7463 +- 0.0109  0.3764 +- 0.0029
+hdsr+bridge   0.249 +- 0.0064   0.245 +- 0.0065  0.9588 +- 0.0025  7.7453 +- 0.0121  0.3761 +- 0.0032
+pref          0.248 +- 0.0041  0.2447 +- 0.0058  0.9612 +- 0.0038  7.7826 +- 0.0089  0.3819 +- 0.0179
+pref+bridge   0.2458 +- 0.005  0.2422 +- 0.0058  0.9607 +- 0.0027  7.7775 +- 0.0112  0.3906 +- 0.0033
+random       0.2472 +- 0.0056  0.2435 +- 0.0057  0.9602 +- 0.0016    7.76 +- 0.0102  0.3807 +- 0.0031
+
+NO-SOCIAL reference (beta=0, ItemKNN only):
+ recall@20         0.2397
+ndcg@20           0.2351
+coverage@100      0.9542
+entropy@100       7.8420
+tail_share@100    0.4323
+
+=== EXP 2: bridge channel vs same-total-weight strong-only control (test, mean over seeds) ===
+                             recall@20  ndcg@20  coverage@100  entropy@100  tail_share@100
+kind           beta_bridge                                                               
+bridge_sweep   0.00            0.2437   0.2420        0.9608       7.7161          0.3362
+               0.05            0.2442   0.2427        0.9598       7.6761          0.3222
+               0.10            0.2431   0.2416        0.9595       7.6410          0.3065
+               0.20            0.2352   0.2336        0.9571       7.6052          0.2866
+               0.30            0.2192   0.2183        0.9567       7.6028          0.2771
+strong_control 0.00            0.2437   0.2420        0.9608       7.7161          0.3362
+               0.05            0.2392   0.2380        0.9608       7.7011          0.3215
+               0.10            0.2347   0.2338        0.9612       7.6910          0.3101
+               0.20            0.2253   0.2238        0.9604       7.6868          0.2969
+               0.30            0.2169   0.2147        0.9595       7.6907          0.2901
