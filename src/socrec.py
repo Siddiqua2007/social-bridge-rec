@@ -237,7 +237,7 @@ def evaluate_many(R, S, Ws, configs, mask, truth, Ks=(20, 100), batch=128, head_
     disc = 1.0 / np.log2(np.arange(2, Kmax + 2))
     need = sorted({n for _, parts in configs.values() for n, _ in parts})
     acc = {c: dict(rec={K: 0.0 for K in Ks}, ndcg={K: 0.0 for K in Ks},
-                   cnt={K: np.zeros(ni) for K in Ks}) for c in configs}
+                   cnt={K: np.zeros(ni) for K in Ks}, hcnt={K: np.zeros(ni) for K in Ks}) for c in configs}
     for s0 in range(0, len(users), batch):
         B = users[s0:s0 + batch]
         base = _rownorm((R[B] @ S).toarray())
@@ -261,6 +261,7 @@ def evaluate_many(R, S, Ws, configs, mask, truth, Ks=(20, 100), batch=128, head_
                 ideal = np.cumsum(disc[:K])[np.minimum(ntruth, K).astype(int) - 1]
                 acc[c]["ndcg"][K] += ((h * disc[:K]).sum(1) / ideal).sum()
                 acc[c]["cnt"][K] += np.bincount(top[:, :K].ravel(), minlength=ni)
+                acc[c]["hcnt"][K] += np.bincount(top[:, :K][h.astype(bool)], minlength=ni)   # only CORRECT recommendations
     out = {}
     for c, a in acc.items():
         m = {}
@@ -273,6 +274,11 @@ def evaluate_many(R, S, Ws, configs, mask, truth, Ks=(20, 100), batch=128, head_
             m[f"coverage@{K}"] = (cnt > 0).mean()
             m[f"entropy@{K}"] = float(-(nz * np.log(nz)).sum())
             m[f"tail_share@{K}"] = 1.0 - cnt[head].sum() / max(cnt.sum(), 1)
+            hc = a["hcnt"][K]                                   # hit-only diversity (Li et al., CIKM 2024 concern)
+            hp = hc / max(hc.sum(), 1); hz = hp[hp > 0]
+            m[f"hit_coverage@{K}"] = (hc > 0).mean()
+            m[f"hit_entropy@{K}"] = float(-(hz * np.log(hz)).sum())
+            m[f"hit_tail_share@{K}"] = 1.0 - hc[head].sum() / max(hc.sum(), 1)
         out[c] = m
     return out
 
