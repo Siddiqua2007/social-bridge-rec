@@ -1,0 +1,14 @@
+EXTRA REFERENCES (IEEE style) - draft for docs\extra_references.txt
+Checked against the first pages of the PDFs (title, authors, venue, DOI). Re-check once on the publisher page before final submission.
+
+[A] Q. Gong, S. Gu, X. Wang, J. Yao, P. Hui, J.-D. Luo, X. Fu, and Y. Chen, "DeepHole: Identifying structural hole spanners in online social networks using behavior embedding," IEEE Trans. Comput. Social Syst., vol. 12, no. 6, pp. 4067-4083, Dec. 2025, doi: 10.1109/TCSS.2025.3567745.
+
+[B] S. Yoshida, "Community-aware two-stage diversification for social media user recommendation with graph neural networks," Information, vol. 17, no. 1, Art. no. 29, 2026, doi: 10.3390/info17010029.
+    (Published online 31 Dec 2025; the journal volume year is 2026.)
+
+[C] LastFM dataset (HetRec 2011): COPY THE CITATION FROM readme.txt INSIDE hetrec2011-lastfm-2k.zip.
+    Do not write it from memory. Also note the download page: GroupLens HetRec 2011.
+
+Notes
+- Before adding [A] or [B], check paper\references.bib. If an entry already exists there, do not repeat it.
+- Numbering [A], [B], [C] is temporary. Siddiqua will renumber when she merges.

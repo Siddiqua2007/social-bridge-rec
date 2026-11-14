@@ -1,17 +1,17 @@
-﻿paper,social?,weak ties / SH?,diversity metric,dataset,read (Lakshmi fills: full paper / abstract only),note
-"DivSR (Li & Zhou, DASFAA 2025)",Yes,No (Louvain only used in Flickr visualisation),"Coverage@100, Entropy@100","Ciao, Yelp, Flickr",,"From Siddiqua's chat summary, not re-checked"
-Hierarchical Denoising / HDSR (IEEE TKDE 2024),Yes,Prunes weak ties (Jaccard + degree). No SH,"No diversity metric (only Recall, Precision, NDCG)","Douban, Yelp2018, Epinions",,"From Siddiqua's chat summary, not re-checked"
-"DBA-SR (Zu et al., IEEE TCSS 2026)",Yes,Prunes weak/redundant social edges using Jaccard overlap + degree centrality. No structural holes or bridging,"No Coverage/Entropy. Reports Tail-Recall@20 and AP@20 (popularity concentration), plus Recall, NDCG","Douban-Book, Douban-Movie, Yelp",,Checked against the PDF. Closest to HDSR-style pruning; compares no/random/degree/structure-aware pruning
-CATD-GNN (Information 2026),Recommends users in social media (not items),"Louvain communities. Its 'weak ties' baseline is modularity-complement, not SH","Community Gini, community coverage, non-redundancy","Twitter-BLM, Reddit",,"From Siddiqua's chat summary, not re-checked"
-DeepHole (IEEE TCSS 2025),"Social network, not a recommender",SH yes (detects spanners using Burt constraint),Not applicable (reports AUC),Yelp (others: verify),,"From Siddiqua's chat summary, not re-checked"
-Sanz-Cruzado & Castells (RecSys 2018),Contact recommendation (users to users),Weak ties yes,"MC, CEGC, CCC (structural diversity)",(verify),,Abstract/keywords checked via author's page; datasets not checked
-"CT-IDR (Rahimkhani & Zamanifar, Cluster Computing 2026)",Yes (signed trust/distrust),"No. Uses structural balance theory on signed edges, not structural holes","Coverage@10/20, ILD@10/20 (embedding-based). Also HR, MRR, RMSE, MAE","Epinions, Ciao (KONECT versions; Ciao distrust is inferred)",,Checked against the PDF
-"DGNN (Xia et al., ICDE 2023)",Yes (also item relations),No,"No diversity metric. HR@N, NDCG@N only (100 sampled negatives)","Ciao (1,925 users, 15,053 items), Epinions, Yelp",,Checked against the PDF. Its Ciao version differs from other papers
-Xia et al. (ASONAM 2012),"Bipartite social network (director-actor), link prediction","SH yes (absent-links measure, MDL measure); also links to weak ties (Granovetter, Burt)",Not applicable. Uses IAR (improvement of AUC-PR over random),IMDb director-actor network,,"Checked against the PDF. Link prediction, not a recommender"
-SUPER (IEEE Access 2026),No,No,"APLT, LTC, Novelty (long-tail)","ML-1M, Douban Book, Yelp",,"From Siddiqua's chat summary, not re-checked"
-"UTSP (Niu et al., IEEE Access 2019)",No (plain collaborative filtering),No,"COV, CIL, HitCOV, HitCIL (aggregate diversity and novelty). Also NDCG, 1-call",MovieLens 100K and 1M,,"Checked against the PDF. HitCOV counts only items that were recommended and relevant, similar in idea to our hit-only coverage"
-"Contrastive social rec. / CGCLR (Li et al., ESWA 2026)",Yes,No. Communities from K-means on pre-trained social embeddings; no SH or bridging,"No diversity metric. Recall@10/20, NDCG@10/20 only","LastFM, Ciao, Yelp, Douban, Douban-Book",,"Checked against the PDF. Uses the same LastFM HetRec files as ours (1,892 users, 17,632 items); its Ciao version has 7,375 users"
-,,,,,,
-"Green rows = checked against the PDF in this chat. White rows = from Siddiqua's chat summary, not re-checked. Yellow = still to fill or verify.",,,,,,
-"The 'read' column is for Lakshmi: write 'full paper' only for papers you actually read, otherwise 'abstract only'.",,,,,,
-Suo & Sodsee and Xu et al. are left out for now (Siddiqua's instruction: only papers we actually have).,,,,,,
+﻿paper,social?,weak ties / SH?,diversity metric,dataset
+"DivSR (Li & Zhou, DASFAA 2025)",Yes,No (Louvain only used in Flickr visualisation),"Coverage@100, Entropy@100","Ciao, Yelp, Flickr"
+Hierarchical Denoising / HDSR (IEEE TKDE 2024),Yes,Prunes weak ties (Jaccard + degree). No SH,"No diversity metric (only Recall, Precision, NDCG)","Douban, Yelp2018, Epinions"
+"DBA-SR (Zu et al., IEEE TCSS 2026)",Yes,Prunes weak/redundant social edges using Jaccard overlap + degree centrality. No structural holes or bridging,"No Coverage/Entropy. Reports Tail-Recall@20 and AP@20 (popularity concentration), plus Recall, NDCG","Douban-Book, Douban-Movie, Yelp"
+"CATD-GNN (Yoshida, Information 2026)","Social media user recommendation (recommends users, not items)",No structural holes. Louvain communities used as pseudo-categories; its 'Weak Ties' baseline (modularity complement) is from Sanz-Cruzado & Castells,"Community-based: ILFBI@K, Community Gini Index (CGI@K), community Coverage@K, non-redundancy. Plus Precision, Recall, NDCG","Twitter-BLM (retweets), Reddit-Ideological"
+"DeepHole (Gong et al., IEEE TCSS 2025)","Social network analysis, not a recommender",SH yes. Detects structural hole spanners; ground truth labelled with Burt's constraint and effective size,Not applicable (reports AUC for spanner detection),"Yelp, Foursquare"
+Sanz-Cruzado & Castells (RecSys 2018),Contact recommendation (users to users),Weak ties yes,"MC, CEGC, CCC (structural diversity)",(verify)
+"CT-IDR (Rahimkhani & Zamanifar, Cluster Computing 2026)",Yes (signed trust/distrust),"No. Uses structural balance theory on signed edges, not structural holes","Coverage@10/20, ILD@10/20 (embedding-based). Also HR, MRR, RMSE, MAE","Epinions, Ciao (KONECT versions; Ciao distrust is inferred)"
+"DGNN (Xia et al., ICDE 2023)",Yes (also item relations),No,"No diversity metric. HR@N, NDCG@N only (100 sampled negatives)","Ciao (1,925 users, 15,053 items), Epinions, Yelp"
+Xia et al. (ASONAM 2012),"Bipartite social network (director-actor), link prediction","SH yes (absent-links measure, MDL measure); also links to weak ties (Granovetter, Burt)",Not applicable. Uses IAR (improvement of AUC-PR over random),IMDb director-actor network
+SUPER (IEEE Access 2026),No,No,"APLT, LTC, Novelty (long-tail)","ML-1M, Douban Book, Yelp"
+"UTSP (Niu et al., IEEE Access 2019)",No (plain collaborative filtering),No,"COV, CIL, HitCOV, HitCIL (aggregate diversity and novelty). Also NDCG, 1-call",MovieLens 100K and 1M
+"Contrastive social rec. / CGCLR (Li et al., ESWA 2026)",Yes,No. Communities from K-means on pre-trained social embeddings; no SH or bridging,"No diversity metric. Recall@10/20, NDCG@10/20 only","LastFM, Ciao, Yelp, Douban, Douban-Book"
+,,,,
+,,,,
+,,,,
+,,,,
