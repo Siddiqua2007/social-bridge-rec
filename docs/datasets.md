@@ -1,18 +1,40 @@
 # LastFM dataset (HetRec 2011)
 
 ## Source
-- File: hetrec2011-lastfm-2k.zip
-- Downloaded from: https://grouplens.org/datasets/hetrec-2011/
-- Files used: user_artists.dat (user, artist, weight) and user_friends.dat (userID, friendID)
+- File: `hetrec2011-lastfm-2k.zip`
+- Downloaded from: https://grouplens.org
+- Files used: `user_artists.dat` (user, artist, weight) and `user_friends.dat` (userID, friendID)
 
 ## Original dataset paper
-[zip ke andar readme.txt kholo, wahan jo citation likha hai wahi yahan copy karo]
+When using this dataset, cite the Last.fm website (http://lastfm.com) and the HetRec '11 workshop:
+
+> Iván Cantador, Peter Brusilovsky, and Tsvi Kuflik. 2011. 2nd Workshop on Information Heterogeneity and Fusion in Recommender Systems (HetRec 2011). In *Proceedings of the 5th ACM Conference on Recommender Systems (RecSys 2011)*. ACM, New York, NY, USA.
+
+```bibtex
+@inproceedings{Cantador:RecSys2011,
+  author = {Cantador, Iv\'{a}n and Brusilovsky, Peter and Kuflik, Tsvi},
+  title = {2nd Workshop on Information Heterogeneity and Fusion in Recommender Systems (HetRec 2011)},
+  booktitle = {Proceedings of the 5th ACM conference on Recommender Systems},
+  series = {RecSys 2011},
+  year = {2011},
+  location = {Chicago, IL, USA},
+  publisher = {ACM},
+  address = {New York, NY, USA}
+}
+```
 
 ## Raw size
-- user_artists.dat: 92,834 interaction rows (92,835 lines with header)
-- user_friends.dat: 25,434 friend rows (25,435 lines with header); each friendship appears in both directions
+- `user_artists.dat`: 92,834 interaction rows (92,835 lines with header)
+- `user_friends.dat`: 25,434 friend rows (25,435 lines with header); each friendship appears in both directions, corresponding to **12,717 undirected pairs**
 
 ## Preprocessing in our code
-[Siddiqua se confirm karo: kam se kam kitne interactions wale users aur items rakhe jaate hain]
-- Column 3 (weight, number of plays) is not used. Only user and artist ids are taken (--inter-cols 0 1).
-- After preprocessing: 1873 users, 6942 items, 82,113 interactions, 12,588 social edges.
+- **Filtering:** Iterative filtering (3 passes) keeping users with $\ge 5$ interactions and items with $\ge 2$ interactions.
+- **Weight column:** Interactions are treated as **binary**; column 3 (`weight`, number of plays) is ignored (`--inter-cols 0 1`).
+- **Social graph:** Treated as an **undirected** friendship graph.
+- **Data split:** Per-user random split of **70% train / 10% validation / 20% test**.
+
+## Final dataset statistics (verified with `lastfm_*_stats.csv`)
+- **Users:** 1,873
+- **Items:** 6,942
+- **Interactions:** 82,113 (density: `0.6315%`, avg `43.84` items/user)
+- **Social edges:** 12,588 undirected edges (density: `0.7180%`, avg `13.44` friends/user)
