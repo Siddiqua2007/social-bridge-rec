@@ -20,12 +20,10 @@
 
 ## 📌 Overview
 
-Social information improves recommendation accuracy, but it can also make recommendations less diverse.
-Many denoising methods prune social edges by preference similarity or node degree, without asking whether an edge
-connects different communities.
+Social information improves recommendation accuracy, but it can also make recommendations less diverse.  
+Many denoising methods prune social edges by preference similarity or node degree, without asking whether an edge connects different communities.
 
-This project is a **controlled study**: one simple recommender (ItemKNN + friends' votes) is kept fixed and only the
-**social-edge selection** changes. This isolates the effect of *which* ties are kept. It is not a state-of-the-art model.
+This project is a **controlled study**: one simple recommender (ItemKNN + friends' votes) is kept fixed and only the **social-edge selection** changes. This isolates the effect of *which* ties are kept. It is not a state-of-the-art model.
 
 ## ✨ Key Features
 
@@ -75,8 +73,8 @@ This project is a **controlled study**: one simple recommender (ItemKNN + friend
 | RQ2: bridge protection vs same selector without it | no diversity gain (either bridge definition) | no difference (all selectors within about 1 std on accuracy) |
 | RQ3: bridging channel vs strong-only control (weight 0.3) | higher tail share (0.49 vs 0.40), lower recall, lower hit-only diversity | recall about equal (0.219 vs 0.217), but lower entropy (6.52 vs 6.71), lower tail share (0.162 vs 0.176) and lower hit-entropy; no diversity benefit |
 
-Reading: the effect of *which* ties are kept depends on the dataset. On both datasets bridge protection and a bridging channel did not give useful diversity gains.
-Differences within one standard deviation should be read as no difference.
+Reading: the effect of *which* ties are kept depends on the dataset. On both datasets bridge protection and a bridging channel did not give useful diversity gains.  
+Differences within one standard deviation should be read as no difference.  
 Full tables: `results/ciao_v2_tables.txt`, `results/ciao_lowcon_tables.txt`, and the Last.fm tables in `results/` (see `docs/datasets.md`).
 
 ## 🖼 Figures
@@ -90,37 +88,31 @@ Full tables: `results/ciao_v2_tables.txt`, `results/ciao_lowcon_tables.txt`, and
 Python 3.13 · NumPy · SciPy · pandas · NetworkX (Louvain, Burt constraint) · Matplotlib. CPU only, no GPU needed.
 
 ## 🔄 Workflow
+
+```text
 raw data → filter (users ≥5, items ≥2) → split 70/10/20 → edge features
-
 → Step 1 diagnostic → edge selectors (same budget) → ItemKNN + social score
+→ choose beta on validation → test metrics → tables and figures
+```
 
-→ choose beta on validation → test metrics → tables and figuresText
 ## 📂 Repository Structure
+
+```text
 social-bridge-rec/
-
 ├── src/
-
 │   ├── socrec.py            # data, edge features, selectors, recommender, metrics
-
 │   ├── run_experiments.py   # diagnostic, Exp 1, Exp 2
-
 │   ├── make_tables.py       # mean ± std tables
-
 │   ├── plots.py             # three figures
-
 │   ├── check_ties.py        # sanity check on candidate scores
-
 │   ├── peek.py              # inspect a raw data file
-
 │   └── make_synthetic.py    # fake data for smoke tests only
-
 ├── results/                 # CSVs, tables, figures, logs
-
 ├── docs/                    # related-work table, references
-
 ├── requirements.txt
+└── README.md
+```
 
-└── README.mdText
 ## 🚀 Installation
 
 ```bash
@@ -128,12 +120,50 @@ git clone https://github.com/Siddiqua2007/social-bridge-rec.git
 cd social-bridge-rec
 python -m venv venv
 venv\Scripts\activate
-python -m pip install -r requirements.txt▶ RunData is not stored in the repo. Last.fm: see docs/datasets.md for source, flags and preprocessing. Place the Ciao files (from the DivSR repository) under external/DivSR/data/ciao/.Bashcd src
+python -m pip install -r requirements.txt
+```
+
+## ▶ Run
+
+Data is not stored in the repo. Last.fm: see `docs/datasets.md` for source, flags and preprocessing. Place the Ciao files (from the DivSR repository) under `external/DivSR/data/ciao/`.
+
+```bash
+cd src
 python run_experiments.py --inter ..\external\DivSR\data\ciao\ciao.train.rating --social ..\external\DivSR\data\ciao\ciao.links --seeds 3 --betas 0 0.1 0.2 0.3 0.5 0.7 0.9 --out ..\results\ciao_v2
 python plots.py ..\results\ciao_v2
-python make_tables.py ..\results\ciao_v2Burt-constraint bridges: add --bridge lowcon and use a different --out.⚠ LimitationsItemKNN recommender (no GNN) · undirected graph · random split · only the DivSR train file as interaction pool ·
-
-item-level aggregate diversity only · two datasets (Ciao, Last.fm) · 3 seeds, no significance tests · HDSR is a re-implementation.🔍 KeywordsSocial Recommendation • Structural Holes • Weak Ties • Diversity • Edge Pruning • Long-tail • Louvain • Burt Constraint • Ciao • Last.fm👩‍💻 ContributorsSiddiqua Abedeen · Lakshmi Prajapati · JyotiGuide: Dr. Jyoti Shokeen, Indira Gandhi Delhi Technical University for Women (IGDTUW)⭐ SupportIf you found this project useful, consider giving it a ⭐ on GitHub.
-🌉 Better recommendations begin with better ties
-
+python make_tables.py ..\results\ciao_v2
 ```
+
+Burt-constraint bridges: add `--bridge lowcon` and use a different `--out`.
+
+## ⚠ Limitations
+
+- ItemKNN recommender (no GNN)
+- Undirected graph
+- Random split
+- Only the DivSR train file as interaction pool
+- Item-level aggregate diversity only
+- Two datasets (Ciao, Last.fm)
+- 3 seeds, no significance tests
+- HDSR is a re-implementation
+
+## 🔍 Keywords
+
+Social Recommendation • Structural Holes • Weak Ties • Diversity • Edge Pruning • Long-tail • Louvain • Burt Constraint • Ciao • Last.fm
+
+## 👩‍💻 Contributors
+
+**Siddiqua Abedeen** · **Lakshmi Prajapati** · **Jyoti**  
+*Guide: Dr. Jyoti Shokeen, Indira Gandhi Delhi Technical University for Women (IGDTUW)*
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+<div align="center">
+
+---
+
+**🌉 Better recommendations begin with better ties**
+
+</div>
