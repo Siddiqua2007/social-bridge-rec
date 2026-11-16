@@ -61,7 +61,7 @@ This project is a **controlled study**: one simple recommender (ItemKNN + friend
 | Diversity | Coverage@K, Entropy@K, Tail share@K |
 | Useful diversity | Hit-coverage, hit-entropy, hit-tail-share (only over correct recommendations) |
 
-> Coverage@100 saturates (about 0.94 for every method), so results use K=20 and entropy / tail share.
+> Coverage@100 saturates (about 0.94 on Ciao and 0.96 on Last.fm), so results use K=20 and entropy / tail share.
 
 ## 🔍 Main Findings (3 seeds, mean ± std)
 
@@ -81,7 +81,7 @@ Full tables: `results/ciao_v2_tables.txt`, `results/ciao_lowcon_tables.txt`, and
 
 | Kept edges | Trade-off | Bridge channel |
 |---|---|---|
-| ![fig1](results/ciao_v2_fig1_kept_bridges.png) | ![fig2](results/ciao_v2_fig2_tradeoff.png) | ![fig3](results/ciao_v2_fig3_bridge_channel.png) |
+| ![fig1](results/final_paper_fig1_kept_bridges.png) | ![fig2](results/final_paper_fig2_tradeoff.png) | ![fig3](results/final_paper_fig3_bridge_channel.png) |
 
 ## ⚙ Tech Stack
 
@@ -103,12 +103,14 @@ social-bridge-rec/
 │   ├── socrec.py            # data, edge features, selectors, recommender, metrics
 │   ├── run_experiments.py   # diagnostic, Exp 1, Exp 2
 │   ├── make_tables.py       # mean ± std tables
-│   ├── plots.py             # three figures
+│   ├── plots.py             # three figures (quick, per dataset)
+│   ├── paper_figs.py        # publication-style figures for the paper (Ciao + Last.fm)
 │   ├── check_ties.py        # sanity check on candidate scores
 │   ├── peek.py              # inspect a raw data file
 │   └── make_synthetic.py    # fake data for smoke tests only
 ├── results/                 # CSVs, tables, figures, logs
 ├── docs/                    # related-work table, references
+├── paper/                   # main.tex, references.bib, figures/, final PDF
 ├── requirements.txt
 └── README.md
 ```
@@ -136,6 +138,12 @@ python make_tables.py ..\results\ciao_v2
 
 Burt-constraint bridges: add `--bridge lowcon` and use a different `--out`.
 
+Paper figures (Ciao and Last.fm results together, single-column size):
+
+```bash
+python paper_figs.py ..\results\ciao_v2 ..\results\lastfm_lakshmi_v2 ..\results\final col
+```
+
 ## ⚠ Limitations
 
 - ItemKNN recommender (no GNN)
@@ -144,6 +152,7 @@ Burt-constraint bridges: add `--bridge lowcon` and use a different `--out`.
 - Only the DivSR train file as interaction pool
 - Item-level aggregate diversity only
 - Two datasets (Ciao, Last.fm)
+- Low-Burt-constraint bridges were run on Ciao only, not on Last.fm
 - 3 seeds, no significance tests
 - HDSR is a re-implementation
 
